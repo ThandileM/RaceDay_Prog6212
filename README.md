@@ -16,4 +16,5 @@ This repository uses GitHub Actions to verify that the folder exists and contain
 # Video Presentation
 Unlisted YouTube link walking through the planning documents, ERD decisions, endpoint plan choices, and a live run of the SQL script in SSMS:
 https://youtu.be/HqYT4gtDADk 
+
 AI did assist with brief description of what the assignment needed and helped plan the assignment layout, it helped debugg some conflicting sql tables. 

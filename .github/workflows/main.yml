@@ -1,57 +1,61 @@
-name: Validate Part 1 Documentation
+name: RaceDay CI
+
 on:
   push:
-    branches: [ "**" ]
+    branches:
+      - main
+      - master
+
   pull_request:
-    branches: [ "**" ]
-  workflow_dispatch:
+    branches:
+      - main
+      - master
 
 jobs:
-  validate-docs-folder:
+  validate-project:
+    name: Validate RaceDay Project
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Check /docs folder exists
+      - name: Check project structure
         run: |
-          if [ ! -d "docs" ]; then
-            echo "::error::/docs folder is missing from the repository root."
-            exit 1
-          fi
-          echo "/docs folder found."
+          echo "Checking RaceDay project structure..."
 
-      - name: Check for ERD (PNG or PDF)
+          
+          test -f RaceDay.sql
+          test -f endpoint plan.pdf
+
+          echo "Required project files are present."
+
+      - name: Validate SQL script
         run: |
-          if ! find docs -maxdepth 1 -iname "*erd*" \( -iname "*.png" -o -iname "*.pdf" \) | grep -q .; then
-            echo "::error::No ERD file found in /docs (expected a .png or .pdf with 'erd' in the filename)."
-            exit 1
-          fi
-          echo "ERD file found."
+          echo "Checking SQL script..."
 
-      - name: Check for API endpoint plan (PDF or Markdown)
+          grep -q "CREATE TABLE Users" docs/RaceDayDatabase.sql
+          grep -q "CREATE TABLE Events" docs/RaceDayDatabase.sql
+          grep -q "CREATE TABLE Results" docs/RaceDayDatabase.sql
+          grep -q "CREATE TABLE Category" docs/RaceDayDatabase.sql
+          grep -q "CREATE TABLE Enrolment" docs/RaceDayDatabase.sql
+          grep -q "CREATE TABLE EnrolmentStatus" docs/RaceDayDatabase.sql
+
+          echo "All six required entities are present."
+
+      - name: Validate API endpoint plan
         run: |
-          if ! find docs -maxdepth 1 -iname "*endpoint*plan*" \( -iname "*.pdf" -o -iname "*.md" \) | grep -q .; then
-            echo "::error::No API endpoint plan found in /docs (expected a .pdf or .md with 'endpoint' and 'plan' in the filename)."
-            exit 1
-          fi
-          echo "API endpoint plan found."
+          echo "Checking API endpoint plan..."
 
-      - name: Check for SQL script
+          grep -q "/api/auth" docs/API-Endpoint-Plan.md
+          grep -q "/api/profile" docs/API-Endpoint-Plan.md
+          grep -q "/api/events" docs/API-Endpoint-Plan.md
+          grep -q "/api/categories" docs/API-Endpoint-Plan.md
+          grep -q "/api/enrolments" docs/API-Endpoint-Plan.md
+          grep -q "/api/results" docs/API-Endpoint-Plan.md
+
+          echo "Required API endpoint sections are present."
+
+      - name: Validation completed
         run: |
-          if ! find docs -maxdepth 1 -iname "*.sql" | grep -q .; then
-            echo "::error::No .sql file found in /docs."
-            exit 1
-          fi
-          echo "SQL script found."
-
-      - name: Check README exists at repository root
-        run: |
-          if [ ! -f "README.md" ]; then
-            echo "::error::README.md is missing from the repository root."
-            exit 1
-          fi
-          echo "README.md found."
-
-      - name: All required Part 1 documents present
-        run: echo "Repository structure check passed."
+          echo "RaceDay CI validation completed successfully."

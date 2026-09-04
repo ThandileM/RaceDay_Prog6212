@@ -11,6 +11,7 @@ RaceDay is a full-stack web-based event management platform for the South Africa
 # CI/CD
 This repository uses GitHub Actions to verify that the folder exists and contain the required ERD, endpoint plan, and SQL script on every push
 # Green build screenshot:
+<img width="960" height="351" alt="2026-09-04 (5)" src="https://github.com/user-attachments/assets/bb59c51a-d416-4d65-a9fb-b24bd958bffd" />
 
 # Video Presentation
 Unlisted YouTube link walking through the planning documents, ERD decisions, endpoint plan choices, and a live run of the SQL script in SSMS:

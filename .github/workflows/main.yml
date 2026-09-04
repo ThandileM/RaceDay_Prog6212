@@ -34,12 +34,12 @@ jobs:
         run: |
           echo "Checking SQL script..."
 
-          grep -q "CREATE TABLE Users" RaceDay.sql
-          grep -q "CREATE TABLE Events" RaceDay.sql
-          grep -q "CREATE TABLE Results" RaceDay.sql
-          grep -q "CREATE TABLE Category" RaceDay.sql
-          grep -q "CREATE TABLE Enrolment" RaceDay.sql
-          grep -q "CREATE TABLE EnrolmentStatus" RaceDay.sql
+          grep -q "CREATE TABLE Users" docs/RaceDay.sql
+          grep -q "CREATE TABLE Events" docs/RaceDay.sql
+          grep -q "CREATE TABLE Results" docs/RaceDay.sql
+          grep -q "CREATE TABLE Category" docs/RaceDay.sql
+          grep -q "CREATE TABLE Enrolment" docs/RaceDay.sql
+          grep -q "CREATE TABLE EnrolmentStatus" docs/RaceDay.sql
 
           echo "All six required entities are present."
 
@@ -47,12 +47,12 @@ jobs:
         run: |
           echo "Checking API endpoint plan..."
 
-          grep -q "/api/auth" endpoint plan.pdf
-          grep -q "/api/profile" endpoint plan.pdf
-          grep -q "/api/events" endpoint plan.pdf
-          grep -q "/api/categories" endpoint plan.pdf
-          grep -q "/api/enrolments" endpoint plan.pdf
-          grep -q "/api/results" endpoint plan.pdf
+          grep -q "/api/auth" docs/endpoint plan.pdf
+          grep -q "/api/profile" docs/endpoint plan.pdf
+          grep -q "/api/events" docs/endpoint plan.pdf
+          grep -q "/api/categories" docs/endpoint plan.pdf
+          grep -q "/api/enrolments" docs/endpoint plan.pdf
+          grep -q "/api/results" docs/endpoint plan.pdf
 
           echo "Required API endpoint sections are present."
 

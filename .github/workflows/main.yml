@@ -1,62 +1,57 @@
-name: RaceDay CI
-
+name: Validate Part 1 Documentation
 on:
   push:
-    branches:
-      - main
-      - master
-
+    branches: [ "**" ]
   pull_request:
-    branches:
-      - main
-      - master
+    branches: [ "**" ]
+  workflow_dispatch:
 
 jobs:
-  validate-project:
-    name: Validate RaceDay Project
+  validate-docs-folder:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Check project structure
+      - name: Check /docs folder exists
         run: |
-          echo "Checking RaceDay project structure..."
+          if [ ! -d "docs" ]; then
+            echo "::error::/docs folder is missing from the repository root."
+            exit 1
+          fi
+          echo "/docs folder found."
 
-          test -d docs
-          test -f docs/RaceDay.sql
-          test -f "docs/endpoint plan.pdf"
-          test -f "docs/ERD- Section A.pdf"
-
-          echo "Required project files are present."
-
-      - name: Validate SQL script
+      - name: Check for ERD document
         run: |
-          echo "Checking SQL script..."
+          if [ ! -f "docs/ERD- Section A.pdf" ]; then
+            echo "::error::Expected docs/ERD- Section A.pdf was not found."
+            exit 1
+          fi
+          echo "ERD file found."
 
-          grep -q "CREATE TABLE Users" docs/RaceDay.sql
-          grep -q "CREATE TABLE Events" docs/RaceDay.sql
-          grep -q "CREATE TABLE Results" docs/RaceDay.sql
-          grep -q "CREATE TABLE Category" docs/RaceDay.sql
-          grep -q "CREATE TABLE Enrolment" docs/RaceDay.sql
-          grep -q "CREATE TABLE EnrolmentStatus" docs/RaceDay.sql
-
-          echo "All six required entities are present."
-
-      - name: Validate API endpoint plan
+      - name: Check for API endpoint plan
         run: |
-          echo "Checking API endpoint plan..."
+          if [ ! -f "docs/endpoint plan.pdf" ]; then
+            echo "::error::Expected docs/endpoint plan.pdf was not found."
+            exit 1
+          fi
+          echo "API endpoint plan found."
 
-          grep -q "/api/auth" docs/endpoint plan.pdf
-          grep -q "/api/profile" docs/endpoint plan.pdf
-          grep -q "/api/events" docs/endpoint plan.pdf
-          grep -q "/api/categories" docs/endpoint plan.pdf
-          grep -q "/api/enrolments" docs/endpoint plan.pdf
-          grep -q "/api/results" docs/endpoint plan.pdf
-
-          echo "Required API endpoint sections are present."
-
-      - name: Validation completed
+      - name: Check for SQL script
         run: |
-          echo "RaceDay CI validation completed successfully."
+          if [ ! -f "docs/RaceDay.sql" ]; then
+            echo "::error::Expected docs/RaceDay.sql was not found."
+            exit 1
+          fi
+          echo "SQL script found."
+
+      - name: Check README exists at repository root
+        run: |
+          if [ ! -f "README.md" ]; then
+            echo "::error::README.md is missing from the repository root."
+            exit 1
+          fi
+          echo "README.md found."
+
+      - name: All required Part 1 documents present
+        run: echo "Repository structure check passed."

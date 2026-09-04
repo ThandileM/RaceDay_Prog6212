@@ -26,7 +26,8 @@ jobs:
 
           test -d docs
           test -f docs/RaceDay.sql
-          test -f docs/endpoint plan.pdf
+          test -f "docs/endpoint plan.pdf"
+          test -f "docs/ERD- Section A.pdf"
 
           echo "Required project files are present."
 

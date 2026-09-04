@@ -5,7 +5,7 @@ RaceDay is a full-stack web-based event management platform for the South Africa
 - Organiser: can create, edit, and delete events, manage event categories, capture partcipant results, and view all event enrolments.
 - Participant: can create an account, browse events, enter an event by selecting a category, view their own enrolments, and track their personal results
 # Part 1: Deliverables
-- ERD: consists of 6 entities (Users, Events, Catefories, EnrolmentStatus, Enrolment, Results), with primary keys, foreign keys, and cardinality.
+- ERD: consists of 6 entities (Users, Events, Categories, EnrolmentStatus, Enrolment, Results), with primary keys, foreign keys, and cardinality.
 - API Endpoint plan: covers Authentication, profile, events, categories, enrolment, and results
 - SQL Script: tested and confirmed to rum cleanly on a fresh SQL Server instance via SSMS
 # CI/CD

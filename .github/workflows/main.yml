@@ -24,9 +24,9 @@ jobs:
         run: |
           echo "Checking RaceDay project structure..."
 
-          
-          test -f RaceDay.sql
-          test -f endpoint plan.pdf
+          test -d docs
+          test -f docs/RaceDay.sql
+          test -f docs/endpoint plan.pdf
 
           echo "Required project files are present."
 
@@ -34,12 +34,12 @@ jobs:
         run: |
           echo "Checking SQL script..."
 
-          grep -q "CREATE TABLE Users" docs/RaceDayDatabase.sql
-          grep -q "CREATE TABLE Events" docs/RaceDayDatabase.sql
-          grep -q "CREATE TABLE Results" docs/RaceDayDatabase.sql
-          grep -q "CREATE TABLE Category" docs/RaceDayDatabase.sql
-          grep -q "CREATE TABLE Enrolment" docs/RaceDayDatabase.sql
-          grep -q "CREATE TABLE EnrolmentStatus" docs/RaceDayDatabase.sql
+          grep -q "CREATE TABLE Users" RaceDay.sql
+          grep -q "CREATE TABLE Events" RaceDay.sql
+          grep -q "CREATE TABLE Results" RaceDay.sql
+          grep -q "CREATE TABLE Category" RaceDay.sql
+          grep -q "CREATE TABLE Enrolment" RaceDay.sql
+          grep -q "CREATE TABLE EnrolmentStatus" RaceDay.sql
 
           echo "All six required entities are present."
 
@@ -47,12 +47,12 @@ jobs:
         run: |
           echo "Checking API endpoint plan..."
 
-          grep -q "/api/auth" docs/API-Endpoint-Plan.md
-          grep -q "/api/profile" docs/API-Endpoint-Plan.md
-          grep -q "/api/events" docs/API-Endpoint-Plan.md
-          grep -q "/api/categories" docs/API-Endpoint-Plan.md
-          grep -q "/api/enrolments" docs/API-Endpoint-Plan.md
-          grep -q "/api/results" docs/API-Endpoint-Plan.md
+          grep -q "/api/auth" endpoint plan.pdf
+          grep -q "/api/profile" endpoint plan.pdf
+          grep -q "/api/events" endpoint plan.pdf
+          grep -q "/api/categories" endpoint plan.pdf
+          grep -q "/api/enrolments" endpoint plan.pdf
+          grep -q "/api/results" endpoint plan.pdf
 
           echo "Required API endpoint sections are present."
 
